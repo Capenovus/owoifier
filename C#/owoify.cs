@@ -27,14 +27,16 @@ namespace owoify
                 "ㅇㅅㅇ", "(• o •)", "ʕ•̫͡•ʔ", "ʕʘ‿ʘʔ", "(　'◟ ')"
             };
 
-            if (str.Contains("l")) str = str.Replace("l", "w");
-            if (str.Contains("r")) str = str.Replace("r", "w");
-            if (str.Contains("L")) str = str.Replace("L", "W");
-            if (str.Contains("R")) str = str.Replace("R", "W");
-            if (str.Contains("no")) str = str.Replace("no", "nu");
-            if (str.Contains("have") || str.Contains("has")) str = str.Replace("have", "haz"); str = str.Replace("has", "haz");
-            if (str.Contains("you")) str = str.Replace("you", "uu");
-            if (str.Contains("the")) str = str.Replace("the", "da");
+            str = str
+                .Replace("l", "w")
+                .Replace("r", "w")
+                .Replace("L", "W")
+                .Replace("R", "W")
+                .Replace("no", "nu")
+                .Replace("have", "haz")
+                .Replace("has", "haz")
+                .Replace("you", "uu")
+                .Replace("the", "da");
 
             str = prefix[rnd.Next(0, prefix.Length)] + " " + str + " " + suffix[rnd.Next(0, suffix.Length)];
 
