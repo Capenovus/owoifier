@@ -19,15 +19,7 @@ def owoify(String: str):
         "ㅇㅅㅇ", "(• o •)", "ʕ•̫͡•ʔ", "ʕʘ‿ʘʔ", "(　'◟ ')"
     ]
 
-    if 'r' or 'l' in _String.lower():
-        if 'r' in _String: _String = _String.replace('r', 'w')
-        if 'l' in _String: _String = _String.replace('l', 'w')
-        if 'R' in _String: _String = _String.replace('R', 'W')
-        if 'L' in _String: _String = _String.replace('L', 'W')
-    if 'no' in _String: _String = _String.replace('no', 'nu')
-    if 'have' or 'has' in _String: _String = _String.replace('have', 'haz'); _String = _String.replace('has', 'haz')
-    if 'you' in _String: _String = _String.replace('you', 'uu')
-    if 'the' in _String: _String = _String.replace('the', 'da')
+    _String = _String.replace('r', 'w').replace('l', 'w').replace('R', 'W').replace('L', 'W').replace('no', 'nu').replace('have', 'haz').replace('has', 'haz').replace('you', 'uu').replace('the', 'da')
 
     _String = f"{random.choice(prefix)} {_String} {random.choice(suffix)}"
 
