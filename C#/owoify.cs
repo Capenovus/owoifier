@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace owoify
 {
@@ -27,16 +28,23 @@ namespace owoify
                 "ㅇㅅㅇ", "(• o •)", "ʕ•̫͡•ʔ", "ʕʘ‿ʘʔ", "(　'◟ ')"
             };
 
-            str = str
-                .Replace("l", "w")
+            str = str.Replace("l", "w")
                 .Replace("r", "w")
                 .Replace("L", "W")
-                .Replace("R", "W")
-                .Replace("no", "nu")
-                .Replace("have", "haz")
-                .Replace("has", "haz")
-                .Replace("you", "uu")
-                .Replace("the", "da");
+                .Replace("R", "W");
+            str = Regex.Replace(str, "ha(ve|s)", "haz", RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, "n[o]+", 
+                m => string.Format(m.Groups[0].Value.Replace("o", "u")), RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, "your", "ur", RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, "you", "uu", RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, "the", "da", RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, "with", "wif", RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, "this", "dis", RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, ":D", "UwU", RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, ":o", "owo", RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, ":O", "OwO", RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, @":\\", ":3", RegexOptions.IgnoreCase);
+            str = Regex.Replace(str, ":o", "owo", RegexOptions.IgnoreCase);
 
             str = prefix[rnd.Next(0, prefix.Length)] + " " + str + " " + suffix[rnd.Next(0, suffix.Length)];
 
