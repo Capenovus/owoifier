@@ -1,5 +1,6 @@
 # coding=utf-8
 import random
+import re
 
 
 def owoify(String: str):
@@ -19,8 +20,20 @@ def owoify(String: str):
         "ㅇㅅㅇ", "(• o •)", "ʕ•̫͡•ʔ", "ʕʘ‿ʘʔ", "(　'◟ ')"
     ]
 
-    _String = _String.replace('r', 'w').replace('l', 'w').replace('R', 'W').replace('L', 'W').replace('no', 'nu').replace('have', 'haz').replace('has', 'haz').replace('you', 'uu').replace('the', 'da')
+    def repl(m):
+        return 'n' + 'u' * (len(m.group()) - 1)
 
+    _String = _String.replace('r', 'w').replace('l', 'w').replace('R', 'W').replace('L', 'W')
+    _String = re.sub(r'n[o]+', repl, _String, flags=re.I)
+    _String = re.sub(r'ha(ve|s)', 'haz', _String, flags=re.I)
+    _String = re.sub('the', 'da', _String, flags=re.I)
+    _String = re.sub('with', 'wif', _String, flags=re.I)
+    _String = re.sub('this', 'dis', _String, flags=re.I)
+    _String = re.sub(':D', 'UwU', _String, flags=re.I)
+    _String = re.sub(':o', 'owo', _String, flags=re.I)
+    _String = re.sub(':O', 'OwO', _String, flags=re.I)
+    _String = re.sub(':o', 'owo', _String, flags=re.I)
+    _String = re.sub(r':\\', ':3', _String, flags=re.I)
     _String = f"{random.choice(prefix)} {_String} {random.choice(suffix)}"
 
     return _String
