@@ -32,7 +32,6 @@ def owoify(String: str):
     _String = re.sub(':D', 'UwU', _String, flags=re.I)
     _String = re.sub(':o', 'owo', _String, flags=re.I)
     _String = re.sub(':O', 'OwO', _String, flags=re.I)
-    _String = re.sub(':o', 'owo', _String, flags=re.I)
     _String = re.sub(r':\\', ':3', _String, flags=re.I)
     _String = f"{random.choice(prefix)} {_String} {random.choice(suffix)}"
 
