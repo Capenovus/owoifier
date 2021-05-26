@@ -44,7 +44,6 @@ namespace owoify
             str = Regex.Replace(str, ":o", "owo", RegexOptions.IgnoreCase);
             str = Regex.Replace(str, ":O", "OwO", RegexOptions.IgnoreCase);
             str = Regex.Replace(str, @":\\", ":3", RegexOptions.IgnoreCase);
-            str = Regex.Replace(str, ":o", "owo", RegexOptions.IgnoreCase);
 
             str = prefix[rnd.Next(0, prefix.Length)] + " " + str + " " + suffix[rnd.Next(0, suffix.Length)];
 
