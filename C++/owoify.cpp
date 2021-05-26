@@ -1,5 +1,20 @@
 #include <iostream>
 #include <random>
+#include <regex>
+
+
+std::wstring regexReplace(std::wstring str, std::wregex regex, std::wstring search, std::wstring replace) {
+	std::wsmatch m;
+	std::wstring out;
+	std::wstring in = str;
+	while (std::regex_search(in, m, regex)) {
+		out += m.prefix();
+		std::wregex re(search);
+		out += std::regex_replace(m[0].str(), re, replace);
+		in = m.suffix();
+	}
+	return out += in;
+}
 
 //Very bad code
 std::wstring owoify(std::wstring STR) {
@@ -9,7 +24,7 @@ std::wstring owoify(std::wstring STR) {
 	const wchar_t *prefix[] = {
 			L"OWO", L"OwO", L"0w0", L"< 3", L"UwU", L"HIIII!", L"H - hewwo??", L"Huohhhh."
 	};
-	std::uniform_int_distribution<int> pr(0, 8);
+	std::uniform_int_distribution<int> pr(0, 7);
 	std::wstring px = prefix[pr(e1)];
 
 	const wchar_t *suffix[] = {
@@ -17,25 +32,30 @@ std::wstring owoify(std::wstring STR) {
 			L"(◠‿◠✿)", L"^ - ^", L"^ _ ^", L"> _ <", L"> _ >", L":P", L":3", L";3", L"x3", L":D", L"xD", L"XDDD", L"（＾ｖ＾）",
 			L"ㅇㅅㅇ", L"(• o •)", L"ʕ•̫͡•ʔ", L"ʕʘ‿ʘʔ", L"(　'◟ ')"
 	};
-	std::uniform_int_distribution<int> sr(0, 30);
+	std::uniform_int_distribution<int> sr(0, 29);
 	std::wstring sx = suffix[sr(e1)];
 
-	if (RSTR.find(L"r") != std::string::npos) { size_t pos; while ((pos = RSTR.find(L"r")) != std::string::npos) { RSTR.replace(pos, 1, L"w"); } }
-	if (RSTR.find(L"l") != std::string::npos) { size_t pos; while ((pos = RSTR.find(L"l")) != std::string::npos) { RSTR.replace(pos, 1, L"w"); } }
-	if (RSTR.find(L"R") != std::string::npos) { size_t pos; while ((pos = RSTR.find(L"R")) != std::string::npos) { RSTR.replace(pos, 1, L"W"); } }
-	if (RSTR.find(L"L") != std::string::npos) { size_t pos; while ((pos = RSTR.find(L"L")) != std::string::npos) { RSTR.replace(pos, 1, L"W"); } }
-	if (RSTR.find(L"no") != std::string::npos) { size_t pos; while ((pos = RSTR.find(L"no")) != std::string::npos) { RSTR.replace(pos, 2, L"nu"); } }
-	if (RSTR.find(L"have") != std::string::npos) { size_t pos; while ((pos = RSTR.find(L"have")) != std::string::npos) { RSTR.replace(pos, 4, L"haz"); } }
-	if (RSTR.find(L"has") != std::string::npos) { size_t pos; while ((pos = RSTR.find(L"has")) != std::string::npos) { RSTR.replace(pos, 3, L"haz"); } }
-	if (RSTR.find(L"you") != std::string::npos) { size_t pos; while ((pos = RSTR.find(L"you")) != std::string::npos) { RSTR.replace(pos, 3, L"uu"); } }
-	if (RSTR.find(L"the") != std::string::npos) { size_t pos; while ((pos = RSTR.find(L"the")) != std::string::npos) { RSTR.replace(pos, 3, L"da"); } }
-
+	RSTR = std::regex_replace(RSTR, std::wregex(L"r"), L"w");
+	RSTR = std::regex_replace(RSTR, std::wregex(L"l"), L"w");
+	RSTR = std::regex_replace(RSTR, std::wregex(L"R"), L"W");
+	RSTR = std::regex_replace(RSTR, std::wregex(L"L"), L"W");
+	RSTR = std::regex_replace(RSTR, std::wregex(L"ha(ve|s)", std::regex_constants::icase), L"haz");
+	RSTR = regexReplace(RSTR, std::wregex(L"n[o]+", std::regex_constants::icase), L"o", L"u");
+	RSTR = std::regex_replace(RSTR, std::wregex(L"your", std::regex_constants::icase), L"ur");
+	RSTR = std::regex_replace(RSTR, std::wregex(L"you", std::regex_constants::icase), L"uu");
+	RSTR = std::regex_replace(RSTR, std::wregex(L"the", std::regex_constants::icase), L"da");
+	RSTR = std::regex_replace(RSTR, std::wregex(L"with", std::regex_constants::icase), L"wif");
+	RSTR = std::regex_replace(RSTR, std::wregex(L":D", std::regex_constants::icase), L"UwU");
+	RSTR = std::regex_replace(RSTR, std::wregex(L":o", std::regex_constants::icase), L"owo");
+	RSTR = std::regex_replace(RSTR, std::wregex(L":O", std::regex_constants::icase), L"OwO");
+	RSTR = std::regex_replace(RSTR, std::wregex(L":\\\\", std::regex_constants::icase), L":3");
+	
 	std::wstring space = L" ";
 	return px + space + RSTR + space + sx;
 }
 
 using namespace std;
-int main()
+int wmain()
 {
 	const wchar_t string[] = L"String to owoify";
 	wcout << owoify(string);
