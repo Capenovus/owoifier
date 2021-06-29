@@ -45,5 +45,5 @@ print(owoify("hello"))
 
 ## C++
 
-Copy the given code and owoify wstrings
+Copy the given code and pray for it to work
  
